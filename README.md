@@ -1,41 +1,22 @@
-luabundle
+luabundle (for Deno)
 ==========
 
-A library for bundling several Lua files into a single file.
+A Deno port of the [luabundle library](https://github.com/Benjamin-Dobell/luabundle) for bundling several Lua files into a single file.
 
-If you're after a CLI tool, please see [luabundler](https://github.com/Benjamin-Dobell/luabundler), which utilises this library.
+If you're after a CLI tool, please see [luabundler](https://github.com/Benjamin-Dobell/luabundler).
 
-[![Version](https://img.shields.io/npm/v/luabundle.svg)](https://npmjs.org/package/luabundle)
-[![Downloads/week](https://img.shields.io/npm/dw/luabundle.svg)](https://npmjs.org/package/luabundle)
 [![License](https://img.shields.io/npm/l/luabundle.svg)](https://github.com/Benjamin-Dobell/luabundle/blob/master/package.json)
-
-* [Installation](#installation)
-* [Usage](#usage)
-
-# Installation
-
-Install the node module with:
-
-```bash
-yarn add luabundle
-```
-
-or with NPM:
-
-```bash
-npm install --save luabundle
-```
 
 # Usage
 
 ```js
-import { bundle } from 'luabundle'
+import { bundle } from 'https://github.com/justinsantoro/luabundle@1.0.0/mod.ts'
 
 const bundledLua = bundle('./file.lua')
 // `bundledLua` now contains valid Lua which can be written straight to disk, stdout etc.
 ```
 
-If you're using TypeScript, TS definitions are available by default.
+This port relies on the npm module moonsharp-luaparse therefore `--compat` and `--unstable` are required.
 
 # Bundling
 
