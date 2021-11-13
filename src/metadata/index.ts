@@ -1,22 +1,21 @@
-import {version} from '../package.json'
 
-import {defaultOptions as defaultBundleOptions, RealizedOptions as BundleOptions} from '../bundle/options'
+import {defaultOptions as defaultBundleOptions, RealizedOptions as BundleOptions} from '../bundle/options.ts'
 
-import {RecursivePartial} from '../common/utility'
+import {RecursivePartial} from '../common/utility.ts'
 
-import MalformedBundleError from '../errors/MalformedBundleError'
+import MalformedBundleError from '../errors/MalformedBundleError.ts'
 
 export type RealizedMetadata = Pick<BundleOptions, 'identifiers' | 'luaVersion' | 'rootModuleName'> & {
 	version: string
 }
 
 export type Metadata = RecursivePartial<RealizedMetadata>
-
+const version = "1.5.0"
 export const defaultMetadata: RealizedMetadata = {
 	identifiers: defaultBundleOptions.identifiers,
 	luaVersion: defaultBundleOptions.luaVersion,
 	rootModuleName: defaultBundleOptions.rootModuleName,
-	version
+	version: version
 }
 
 function intersectionDiff<Set extends object>(a: Set, subset: RecursivePartial<Set>): RecursivePartial<Set> & RecursivePartial<typeof subset> {

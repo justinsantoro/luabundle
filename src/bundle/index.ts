@@ -1,18 +1,18 @@
-import {readFileSync} from 'fs'
-
 import {
 	resolve as resolvePath,
-} from 'path'
+	fromFileUrl,
+	dirname
+} from "https://deno.land/std@0.114.0/path/mod.ts";
 
 import {
 	Module,
 	ModuleMap,
-} from './module'
+} from './module.ts'
 
-import {defaultOptions, Options, RealizedOptions} from './options'
+import {defaultOptions, Options, RealizedOptions} from './options.ts'
 
-import {processModule} from './process'
-import {generateMetadata} from '../metadata'
+import {processModule} from './process.ts'
+import {generateMetadata} from '../metadata/index.ts'
 
 function mergeOptions(options: Options): RealizedOptions {
 	return {
@@ -45,7 +45,7 @@ export function bundleString(lua: string, options: Options = {}): string {
 	}
 
 	const identifiers = realizedOptions.identifiers
-	const runtime = readFileSync(resolvePath(__dirname, './runtime.lua'))
+	const runtime = Deno.readFileSync(resolvePath(dirname(fromFileUrl(import.meta.url)), './runtime.lua'))
 
 	let bundle = ''
 
@@ -69,6 +69,6 @@ export function bundleString(lua: string, options: Options = {}): string {
 }
 
 export function bundle(inputFilePath: string, options: Options = {}): string {
-	const lua = readFileSync(inputFilePath, 'utf8')
+	const lua = new TextDecoder('utf-8').decode(Deno.readFileSync(inputFilePath))
 	return bundleString(lua, options)
 }

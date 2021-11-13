@@ -1,5 +1,5 @@
-import {CallExpression, Expression, FunctionDeclaration, Node, StringCallExpression} from 'moonsharp-luaparse'
-import {Chunk} from 'moonsharp-luaparse'
+import {CallExpression, Expression, FunctionDeclaration, Node, StringCallExpression} from '../dep.ts'
+import {Chunk} from 'https://esm.sh/moonsharp-luaparse'
 
 export type RequireExpression = CallExpression | StringCallExpression
 
@@ -22,7 +22,6 @@ export function reverseTraverse(node: Node, callback: (node: Node) => boolean | 
 			}
 		}
 	}
-
 	return callback(node) || false
 }
 

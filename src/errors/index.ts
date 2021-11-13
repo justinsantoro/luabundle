@@ -1,7 +1,7 @@
-import MalformedBundleError from './MalformedBundleError'
-import ModuleBundlingError from './ModuleBundlingError'
-import ModuleResolutionError from './ModuleResolutionError'
-import NoBundleMetadataError from './NoBundleMetadataError'
+import MalformedBundleError from './MalformedBundleError.ts'
+import ModuleBundlingError from './ModuleBundlingError.ts'
+import ModuleResolutionError from './ModuleResolutionError.ts'
+import NoBundleMetadataError from './NoBundleMetadataError.ts'
 
 export {
 	MalformedBundleError,

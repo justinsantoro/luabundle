@@ -1,16 +1,16 @@
 import {
 	FunctionDeclaration,
 	parse as parseLua,
-} from 'moonsharp-luaparse'
+} from '../dep.ts'
 
-import {Module, ModuleMap} from './module'
+import {Module, ModuleMap} from './module.ts'
 
-import {iterateModuleRegistrations} from '../ast'
+import {iterateModuleRegistrations} from '../ast/index.ts'
 
-import {RealizedMetadata} from '../metadata'
-import {RealizedOptions} from './options'
+import {RealizedMetadata} from '../metadata/index.ts'
+import {RealizedOptions} from './options.ts'
 
-import MalformedBundleError from '../errors/MalformedBundleError'
+import MalformedBundleError from '../errors/MalformedBundleError.ts'
 
 function extractModule(lua: string, name: string, declaration: FunctionDeclaration): Module {
 	if (declaration.parameters.length !== 4) {
