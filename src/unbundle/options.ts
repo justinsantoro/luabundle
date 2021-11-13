@@ -1,4 +1,4 @@
-import {RecursiveMutable, RecursivePartial, RecursiveReadonly} from '../common/utility'
+import {RecursiveMutable, RecursivePartial, RecursiveReadonly} from '../common/utility.ts'
 
 export type RealizedOptions = RecursiveReadonly<{
 	rootOnly: boolean,

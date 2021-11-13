@@ -6,3 +6,4 @@
 /gen
 /tmp
 node_modules
+.vscode

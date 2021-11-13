@@ -1,29 +1,23 @@
-import {
-	existsSync,
-	lstatSync,
-	readFileSync,
-} from 'fs'
 
 import {
-	sep as pathSeparator
-} from 'path'
+	SEP as pathSeparator
+} from "https://deno.land/std@0.114.0/path/mod.ts";
 
 import {
 	CallExpression,
-	Node,
 	parse as parseLua,
 	StringCallExpression,
-} from 'moonsharp-luaparse'
+} from '../dep.ts'
 
-import {Module, ModuleMap} from './module'
+import {Module, ModuleMap} from './module.ts'
 
-import {reverseTraverseRequires} from '../ast'
+import {reverseTraverseRequires} from '../ast/index.ts'
 
-import {RealizedOptions} from './options'
-import {readMetadata} from '../metadata'
+import {RealizedOptions} from './options.ts'
+import {readMetadata} from '../metadata/index.ts'
 
-import ModuleBundlingError from '../errors/ModuleBundlingError'
-import ModuleResolutionError from '../errors/ModuleResolutionError'
+import ModuleBundlingError from '../errors/ModuleBundlingError.ts'
+import ModuleResolutionError from '../errors/ModuleResolutionError.ts'
 
 type ResolvedModule = {
 	name: string,
@@ -35,9 +29,13 @@ export function resolveModule(name: string, packagePaths: readonly string[]) {
 
 	for (const pattern of packagePaths) {
 		const path = pattern.replace(/\?/g, platformName)
-
-		if (existsSync(path) && lstatSync(path).isFile()) {
-			return path
+		
+		try {
+			if (Deno.lstatSync(path).isFile) {
+				return path
+			}
+		} catch (_error) {
+			//do nothing - does not exist
 		}
 	}
 	return null
@@ -50,7 +48,7 @@ export function processModule(module: Module, options: RealizedOptions, processe
 
 	// Ensure we don't attempt to load modules required in nested bundles
 	if (!readMetadata(content)) {
-		let ast = parseLua(content, {
+		const ast = parseLua(content, {
 			locations: true,
 			luaVersion: options.luaVersion,
 			ranges: true,
@@ -74,7 +72,7 @@ export function processModule(module: Module, options: RealizedOptions, processe
 					const resolvedPath = resolveModule(requiredModule, options.paths)
 
 					if (!resolvedPath) {
-						const start = expression.loc?.start!!
+						const start = expression.loc?.start!
 						throw new ModuleResolutionError(requiredModule, module.name, start.line, start.column)
 					}
 
@@ -104,7 +102,7 @@ export function processModule(module: Module, options: RealizedOptions, processe
 		}
 
 		try {
-			const moduleContent = readFileSync(resolvedModule.resolvedPath, 'utf8')
+			const moduleContent = new TextDecoder('utf-8').decode(Deno.readFileSync(resolvedModule.resolvedPath))
 			processModule({
 				...resolvedModule,
 				content: moduleContent

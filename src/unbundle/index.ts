@@ -1,14 +1,12 @@
-import {readFileSync} from 'fs'
+import {ModuleMap} from './module.ts'
 
-import {ModuleMap} from './module'
+import {defaultMetadata, Metadata, readMetadata, RealizedMetadata} from '../metadata/index.ts'
+import {Options, RealizedOptions} from './options.ts'
 
-import {defaultMetadata, Metadata, readMetadata, RealizedMetadata} from '../metadata'
-import {Options, RealizedOptions} from './options'
+import {processModules} from './process.ts'
 
-import {processModules} from './process'
-
-import MalformedBundleError from '../errors/MalformedBundleError'
-import NoBundleMetadataError from '../errors/NoBundleMetadataError'
+import MalformedBundleError from '../errors/MalformedBundleError.ts'
+import NoBundleMetadataError from '../errors/NoBundleMetadataError.ts'
 
 export type UnbundledData = {
 	metadata: RealizedMetadata,
@@ -61,6 +59,6 @@ export function unbundleString(lua: string, options: Options = {}): UnbundledDat
 }
 
 export function unbundle(inputFilePath: string, options: Options = {}): UnbundledData {
-	const lua = readFileSync(inputFilePath, 'utf8')
+	const lua = new TextDecoder('utf-8').decode(Deno.readFileSync(inputFilePath))
 	return unbundleString(lua, options)
 }

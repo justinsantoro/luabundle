@@ -1,8 +1,8 @@
-import {Expression} from 'moonsharp-luaparse'
+import {Expression} from 'https://esm.sh/moonsharp-luaparse';
 
-import {Module} from './module'
-import {Identifiers, LuaVersion} from '../common/options'
-import {RecursiveMutable, RecursivePartial, RecursiveReadonly} from '../common/utility'
+import {Module} from './module.ts'
+import {Identifiers, LuaVersion} from '../common/options.ts'
+import {RecursiveMutable, RecursivePartial, RecursiveReadonly} from '../common/utility.ts'
 
 export type ExpressionHandler = (module: Module, expression: Expression) => string | string[] | null | undefined | void
 export type Process = (module: Module, options: RealizedOptions) => string
