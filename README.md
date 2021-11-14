@@ -10,13 +10,13 @@ If you're after a CLI tool, please see [luabundler](https://github.com/Benjamin-
 # Usage
 
 ```js
-import { bundle } from 'https://github.com/justinsantoro/luabundle@1.0.0/mod.ts'
+import { bundle } from 'https://raw.githubusercontent.com/justinsantoro/luabundle/v1.0.0/mod.ts'
 
 const bundledLua = bundle('./file.lua')
 // `bundledLua` now contains valid Lua which can be written straight to disk, stdout etc.
 ```
-
-This port relies on the npm module moonsharp-luaparse therefore `--compat` and `--unstable` are required.
+Requires `--allow-read`.\
+This port relies on the npm module [moonsharp-luaparse](https://www.npmjs.com/package/moonsharp-luaparse) therefore `--compat` and `--unstable` are also required.
 
 # Bundling
 
